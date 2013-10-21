@@ -6,6 +6,7 @@ import scala.xml.Elem
 import scala.xml.transform.RewriteRule
 import scala.xml.transform.RuleTransformer
 
+
 class Aiml(name:String, topics:Option[List[Topic]]){
     require(name!=null)
     require(!name.toString().equals(""))

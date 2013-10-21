@@ -5,13 +5,12 @@ import org.scalatest.Matchers
 
 class TopicSpec extends FlatSpec with Matchers {
 
-    "A Topic" should "throws an exception when no name" in {
+    it should "throws an exception when no name" in {
         intercept[IllegalArgumentException]{new Topic(null, None)}
     }
     it should "throws an exception when name is empty" in {
     	intercept[IllegalArgumentException]{new Topic("", None)}
     }
-    
     it should "generate a valid XML (without Categories)" in{
         val expectedXml = <topic name="aTopicName"/>
         new Topic("aTopicName", None).toXml should be(expectedXml)

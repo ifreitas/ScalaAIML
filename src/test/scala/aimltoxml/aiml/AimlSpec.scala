@@ -5,7 +5,7 @@ import org.scalatest.Matchers
 
 class AimlSpec extends FlatSpec with Matchers {
 
-    "A AIML" should "throws an exception when no name" in {
+    it should "throws an exception when no name" in {
         intercept[IllegalArgumentException]{new Aiml(null,None)}
     }
     it should "throws an exception when name is empty" in {
