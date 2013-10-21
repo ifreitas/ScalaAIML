@@ -17,4 +17,4 @@ public/bin/*
 .DS_Store
 coverage
 .loadpath
-.settings/com.aptana.rdt.prefs
+.settings/*
