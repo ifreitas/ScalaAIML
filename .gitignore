@@ -18,3 +18,4 @@ public/bin/*
 coverage
 .loadpath
 .settings/*
+.cache
