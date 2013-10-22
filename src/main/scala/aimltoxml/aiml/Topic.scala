@@ -1,10 +1,14 @@
 package aimltoxml.aiml
 
-class Topic(name: String, theCategories: List[Option[Category]]) {
-    require(name != null && !name.toString().equals(""))
-    require(!theCategories.isEmpty, "The Topic must have at least one Category.")
+import reflect.runtime.universe.TypeTag
+import scala.collection.mutable.Set
 
-    def toXml = <topic name={ this.name }>{
+class Topic(n: String, theCategories: Set[Option[Category]]) {
+    require(n != null && !n.toString().equals(""))
+
+    def toXml ={
+    	require(!theCategories.isEmpty, "The Topic must have at least one Category.")
+        <topic name={ this.name }>{
         theCategories.map { theCategory =>
             theCategory match {
                 case Some(category) => category.toXml
@@ -12,9 +16,26 @@ class Topic(name: String, theCategories: List[Option[Category]]) {
             }
         }
     }</topic>
+    }
+    
+    def add(newCategory:Category*)={newCategory.map{category => this.theCategories.add(Some(category))};this}
+    
+    def categories = {theCategories}
+    def name={this.n}
 }
 
-object Topic {
-    def apply(name: String, categories: List[Option[Category]]) = { new Topic(name, categories) }
-    def apply(name: String, categories: Option[Category]*) 		= { new Topic(name, categories.toList) }
+abstract class AbstractTopic{
+	final def apply(name: String, categories: Set[Option[Category]])                           = { new Topic(name, categories) }
+	final def apply(name: String, categories: Option[Category]*)                               = { new Topic(name, Set(categories: _*)) }
+	final def apply(name: String, categories: Category*)(implicit ev: TypeTag[Category]):Topic = { new Topic(name, Set(categories.map{Some(_)}: _*)) }
 }
+
+/**
+ * The Topic Companion Object.
+ */
+object Topic extends AbstractTopic
+
+/**
+ * Shorthand for Topic.
+ */
+object T extends AbstractTopic

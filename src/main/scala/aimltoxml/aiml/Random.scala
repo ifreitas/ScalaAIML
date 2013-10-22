@@ -6,7 +6,7 @@ trait RandomElement{
     def toXml:Node
 }
 
-class Random(theOptions: List[Option[RandomElement]]) {
+class Random(theOptions: Set[Option[RandomElement]]) extends TemplateElement{
     require(!theOptions.isEmpty, "The Random object must have at least one option. Example: Random(Some(Text(\"Some text here.\")))")
     
     def toXml={
@@ -16,7 +16,18 @@ class Random(theOptions: List[Option[RandomElement]]) {
     	})}</random>
     }
 }
-object Random {
-    def apply(options: Option[RandomElement]*) 		= { new Random(options.toList) }
-    def apply(options: List[Option[RandomElement]]) = { new Random(options) }
+
+abstract class AbstractRandom{
+	final def apply(options: Option[RandomElement]*)      = { new Random(options.toSet) }
+	final def apply(options: Set[Option[RandomElement]]) = { new Random(options) }
 }
+
+/**
+ * The Random Companion Object.
+ */
+object Random extends AbstractRandom
+
+/**
+ * Shorthand for Random.
+ */
+object R extends AbstractRandom
