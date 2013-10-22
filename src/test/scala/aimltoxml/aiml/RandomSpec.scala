@@ -16,4 +16,8 @@ class RandomSpec extends FlatSpec with Matchers {
     	val expectedXml = <random><li>Hi</li><li>Hey</li></random>
     	Random(List(Some(Text("Hi")), Some(Text("Hey")))).toXml should be(expectedXml)
     }
+    it should "generate a valid XML (li + srai)" in{
+    	val expectedXml = <random><li>Hi</li><li><srai>Hey</srai></li></random>
+    	Random(Some(Text("Hi")), Some(Srai(Text("Hey")))).toXml should be(expectedXml)
+    }
 }
