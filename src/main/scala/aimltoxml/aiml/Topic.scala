@@ -1,15 +1,20 @@
 package aimltoxml.aiml
 
-class Topic(name:String, categories:Option[List[Category]]){
-	require(name!=null)
-	require(!name.toString().equals(""))
-	
-	def toXml = categories match{
-	case Some(theCategories) => <topic name={this.name}>{theCategories.map{category => category.toXml}}</topic>
-	case None => <topic name={this.name}/>
-	}
+class Topic(name: String, theCategories: List[Option[Category]]) {
+    require(name != null && !name.toString().equals(""))
+    require(!theCategories.isEmpty, "The Topic must have at least one Category.")
+
+    def toXml = <topic name={ this.name }>{
+        theCategories.map { theCategory =>
+            theCategory match {
+                case Some(category) => category.toXml
+                case _              => throw new IllegalArgumentException("Invalid Category: \"" + theCategory + "\".")
+            }
+        }
+    }</topic>
 }
 
-object Topic{
-    def apply(name:String, categories:Option[List[Category]])={new Topic(name, categories)}
+object Topic {
+    def apply(name: String, categories: List[Option[Category]]) = { new Topic(name, categories) }
+    def apply(name: String, categories: Option[Category]*) 		= { new Topic(name, categories.toList) }
 }

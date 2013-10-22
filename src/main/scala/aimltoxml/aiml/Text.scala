@@ -1,6 +1,6 @@
 package aimltoxml.aiml
 
-class Text(theText:String) extends TemplateElement{
+class Text(theText:String) extends TemplateElement with RandomElement{
     def toXml = new scala.xml.Text(theText)
 }
 object Text{
