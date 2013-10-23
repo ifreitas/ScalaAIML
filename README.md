@@ -141,4 +141,4 @@ greetings.toXml
 
 ---
 #### License
-AimlToXml is a free and open source software, but I don't know yet which license to apply. 
+Apache License version 2.0
