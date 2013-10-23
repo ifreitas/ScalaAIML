@@ -19,7 +19,6 @@ class Aiml(name:String, theTopics:Set[Option[Topic]] = Set[Option[Topic]](Some(T
     def toXmlFile = XML.save(this.name, this.toXml, null, false, null)
     
     def topic(topicName:String)= {
-        println(topicName)
         (theTopics find (_.get.name == topicName)) match{
         case Some(theTopic) => theTopic.get
         case x => throw new IllegalArgumentException(f"Topic \'$x\' not found")
