@@ -105,9 +105,9 @@ T("greetings", C("hi", "Hello")).toXml
 
 ```scala
 val greetings = A("greetings")
-greetings.topic("*"). // The default Topic
-          add(C("HI", R("Hello, there.", "Hi!"))). // tells to return a random answer to the 'hi' input
-          add(C("HELLO", S("HI"))) // tells to return a random answer like the given to the 'hi' input
+greetings.topic("*").
+          add(C("HI", R("Hello, there.", "Hi!"))).
+          add(C("HELLO", S("HI")))
 greetings.toXml
 ```
 ```xml
