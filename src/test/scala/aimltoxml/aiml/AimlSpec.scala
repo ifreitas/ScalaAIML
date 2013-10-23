@@ -23,17 +23,17 @@ class AimlSpec extends FlatSpec with Matchers {
     	intercept[IllegalArgumentException]{Aiml("aAimlName", Set[Option[Topic]](Some(Topic("aTopic", None)))).toXml}
     }
     it should "generate an XML with the same amount of Topics (list)" in {
-        val topic1 = Topic("aTopic", Some(Category("hi", Some(Text("hey")))))
-        val topic2 = Topic("otherTopic", Some(Category("hey", Some(Text("ho")))))
-        val topic3 = Topic("yetOtherTopic", Some(Category("wow", Some(Text("lol")))))
+        val topic1 = Topic("aTopic", Some(Category("hi", Text("hey"))))
+        val topic2 = Topic("otherTopic", Some(Category("hey", Text("ho"))))
+        val topic3 = Topic("yetOtherTopic", Some(Category("wow", Text("lol"))))
         val aiml   = Aiml("aAimlName", Set[Option[Topic]](Some(topic1), Some(topic2), Some(topic3)))
         val xml = aiml.toXml
         (xml \ "topic" ).size should be(3)
     }
     it should "generate an XML with the same amount of Topics (varargs)" in {
-    	val topic1 = Topic("aTopic", Some(Category("hi", Some(Text("hey")))))
-        val topic2 = Topic("otherTopic", Some(Category("hey", Some(Text("ho")))))
-        val topic3 = Topic("yetOtherTopic", Some(Category("wow", Some(Text("lol")))))
+    	val topic1 = Topic("aTopic", Some(Category("hi", Text("hey"))))
+        val topic2 = Topic("otherTopic", Some(Category("hey", Text("ho"))))
+        val topic3 = Topic("yetOtherTopic", Some(Category("wow", Text("lol"))))
     	val aiml   = Aiml("aAimlName", Some(topic1), Some(topic2), Some(topic3))
     	val xml = aiml.toXml
     	(xml \ "topic" ).size should be(3)

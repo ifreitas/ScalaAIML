@@ -21,16 +21,16 @@ class TopicSpec extends FlatSpec with Matchers{
     }
     it should "generate a valid XML (list)" in{
     	val expectedXml = <topic name="aTopicName"><category><pattern>HI</pattern><template>hello</template></category></topic>
-    	Topic("aTopicName", Set[Option[Category]](Some(Category("hi", Some(Text("hello")))))).toXml should be(expectedXml)
+    	Topic("aTopicName", Set[Option[Category]](Some(Category("hi", Text("hello"))))).toXml should be(expectedXml)
     }
     it should "generate a valid XML (varargs)" in{
     	val expectedXml = <topic name="aTopicName"><category><pattern>HI</pattern><template>hello</template></category></topic>
-    	Topic("aTopicName", Some(Category("hi", Some(Text("hello"))))).toXml should be(expectedXml)
+    	Topic("aTopicName", Some(Category("hi", Text("hello")))).toXml should be(expectedXml)
     }
     it should "generate an XML with the same amount of Categories" in {
-        val category1 = Category("hi", Some(Text("hello")))
-        val category2 = Category("how are you", Some(Text("I'm fine. And you?")))
-        val category3 = Category("Me too", Some(Text("good")))
+        val category1 = Category("hi", Text("hello"))
+        val category2 = Category("how are you", Text("I'm fine. And you?"))
+        val category3 = Category("Me too", Text("good"))
         val topic     = Topic("aTopicName", Some(category1), Some(category2), Some(category3))
         
         val xml       = topic.toXml

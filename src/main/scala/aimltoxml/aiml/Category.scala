@@ -21,8 +21,8 @@ class Category(pattern:String, templateElements:Set[Option[TemplateElement]]){
 
 abstract class AbstractCategory{
 	final def apply(pattern:String, templateElements:Set[Option[TemplateElement]]):Category                                = {new Category(pattern, templateElements)}
-	final def apply(pattern:String, templateElements:Set[TemplateElement]):Category = {new Category(pattern, templateElements.map{Some(_)})}
-	final def apply(pattern:String, templateElements:Option[TemplateElement]*):Category                                    = {Category(pattern, templateElements.toSet)}
+	final def apply(pattern:String, templateElements:Set[TemplateElement])(implicit ev: TypeTag[TemplateElement]):Category = {Category(pattern, templateElements.map{templateElement=>Some(templateElement)}.toSet[Option[TemplateElement]])}
+	final def apply(pattern:String, templateElements:TemplateElement*):Category                                            = {Category(pattern, templateElements.toSet)}
 	final def apply(pattern:String, templateElements:String*)(implicit ev: TypeTag[String]):Category                       = {Category(pattern, templateElements.map{templateElement=>Some(Text(templateElement))}.toSet[Option[TemplateElement]])}
 }
 

@@ -3,7 +3,7 @@ package aimltoxml.aiml
 import scala.xml.XML
 import scala.collection.mutable.Set
 
-class Aiml(name:String, theTopics:Set[Option[Topic]]){
+class Aiml(name:String, theTopics:Set[Option[Topic]] = Set[Option[Topic]](Some(Topic("*", Set[Option[Category]]())))){
     require(name!=null && !name.toString().equals(""))
     
     def toXml = {
@@ -18,13 +18,22 @@ class Aiml(name:String, theTopics:Set[Option[Topic]]){
     
     def toXmlFile = XML.save(this.name, this.toXml, null, false, null)
     
-    def topic(topicName:String)= (theTopics find (_.get.name == topicName)).get
+    def topic(topicName:String)= {
+        println(topicName)
+        (theTopics find (_.get.name == topicName)) match{
+        case Some(theTopic) => theTopic.get
+        case x => throw new IllegalArgumentException(f"Topic \'$x\' not found")
+        }
+    }
+    def topics=theTopics
+    
 }
 
 
 abstract class AbstractAiml{
 	final def apply(name:String, topics:Set[Option[Topic]]) = {new Aiml(name, topics)}
-	final def apply(name:String, topics:Option[Topic]*)      = {new Aiml(name, Set(topics: _*))}
+	final def apply(name:String, topics:Option[Topic]*)     = {new Aiml(name, Set(topics: _*))}
+	final def apply(name:String)                            = {new Aiml(name)}
 }
 
 /** 
