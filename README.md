@@ -141,4 +141,4 @@ greetings.toXml
 
 ---
 #### License
-Apache License version 2.0
+MIT
