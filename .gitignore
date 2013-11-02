@@ -13,6 +13,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /target/*
+project/target/*
 public/bin/*
 .DS_Store
 coverage

@@ -2,7 +2,7 @@ name := "AIML To XML"
 
 version := "0.0.1"
 
-scalaVersion := "2.10.0"
+scalaVersion := "2.10.2"
 
 EclipseKeys.withSource := true
 
@@ -15,8 +15,8 @@ resolvers ++= Seq(
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 
 libraryDependencies ++= {
-  val liftVersion = "2.5.1"
   Seq(
+    "org.scala-lang"           % "scala-reflect"               % "2.10.2",
     "org.scalatest"            % "scalatest_2.10"              % "2.0.M8"              % "test",
     "org.mockito"              % "mockito-all"                 % "1.9.5"               % "test"
   )
