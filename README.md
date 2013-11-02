@@ -104,11 +104,11 @@ T("greetings", C("hi", "Hello")).toXml
 > An AIML object must have a version attribute, indicating the version of AIML that the object requires. For this version of AIML, the version should be 1.0.1. When the value is not equal to 1.0.1, forward-compatible processing mode is enabled.
 
 ```scala
-val aiml = A("greetings")
-aiml.topic("*").
-     add(C("HI", R("Hello, there.", "Hi!"))).
-     add(C("HELLO", S("HI")))
-aiml.toXml
+val greetings = A("greetings")
+greetings.topic("*").
+          add(C("HI", R("Hello, there.", "Hi!"))).
+          add(C("HELLO", S("HI")))
+greetings.toXml
 ```
 ```xml
 <aiml version="1.0.1"
@@ -141,4 +141,4 @@ aiml.toXml
 
 ---
 #### License
-AimlToXml is a free and open source software, but I don't know yet which license to apply. 
+MIT
