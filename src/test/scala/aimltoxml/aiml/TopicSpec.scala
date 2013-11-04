@@ -25,7 +25,6 @@ package aimltoxml.aiml
 
 import org.scalatest.FlatSpec
 import org.scalatest.Matchers
-import scala.collection.mutable.Set
 
 class TopicSpec extends FlatSpec with Matchers{
 
@@ -57,10 +56,4 @@ class TopicSpec extends FlatSpec with Matchers{
         (xml \ "category" ).size should be(3)
     }
     
-    "#add" should "add the new Category to the its categories's set." in {
-        val topic = Topic("aTopic", Set.empty[Category])
-        topic.categories.size should be(0)
-        topic.add(Category("hi", "Hello"))
-        topic.categories.size should be(1)
-    }
 }

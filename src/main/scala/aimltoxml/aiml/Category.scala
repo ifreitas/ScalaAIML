@@ -30,7 +30,7 @@ import scala.xml.transform.RuleTransformer
 import scala.collection.immutable.Set
 import reflect.runtime.universe.TypeTag
 
-class Category(thePattern: String, theTemplateElements: Set[TemplateElement]) extends Equals {
+class Category(thePattern: String, theTemplateElements: Set[TemplateElement]) {
     require(thePattern != null && !thePattern.trim().equals(""), "The pattern is required.")
     require(!theTemplateElements.isEmpty, "The Category must have at least one Template Element. Example: Category(\"Hi\", Some(Text(\"Hello\")))")
 
@@ -46,33 +46,24 @@ class Category(thePattern: String, theTemplateElements: Set[TemplateElement]) ex
         }</template></category>
     }
 
-    override def toString = {
-        "pattern: " + pattern + "; template: " + templateElements.map(t => t.toString)
-    }
+    override def toString = "pattern: " + pattern + "; template: " + templateElements.map(t => t.toString)
 
-    def canEqual(other: Any) = {
-        other.isInstanceOf[aimltoxml.aiml.Category]
-    }
+    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Category]
 
     override def equals(other: Any) = {
         other match {
-            case that: aimltoxml.aiml.Category =>
-                that.canEqual(Category.this) &&
-                that.pattern == this.pattern &&
-                that.templateElements == this.templateElements
-            case _ => false
+            case that: aimltoxml.aiml.Category => that.canEqual(Category.this) && that.pattern == this.pattern && that.templateElements == this.templateElements
+            case _                             => false
         }
     }
 
-    override def hashCode() = {
-        41 * (41 + pattern.hashCode()) + templateElements.hashCode
-    }
+    override def hashCode = 41 * (41 + pattern.hashCode()) + templateElements.hashCode
 
 }
 
 abstract class AbstractCategory {
-    final def apply(pattern: String, templateElements: Set[TemplateElement]): Category                  = { new Category(pattern, templateElements) }
-    final def apply(pattern: String, templateElements: TemplateElement*): Category                      = { Category(pattern, templateElements.toSet) }
+    final def apply(pattern: String, templateElements: Set[TemplateElement]): Category = { new Category(pattern, templateElements) }
+    final def apply(pattern: String, templateElements: TemplateElement*): Category = { Category(pattern, templateElements.toSet) }
     final def apply(pattern: String, templateElements: String*)(implicit ev: TypeTag[String]): Category = { Category(pattern, templateElements.map { templateElement => Text(templateElement) }.toSet[TemplateElement]) }
 }
 

@@ -24,16 +24,18 @@
 package aimltoxml.aiml
 
 import scala.xml.XML
-import scala.collection.mutable.Set
 
-class Aiml(name: String, theTopics: Set[Topic] = Set(Topic.default)) {
-    require(name != null && !name.toString().equals(""))
+class Aiml(theName: String, theTopics: Set[Topic] = Set(Topic.default)) {
+    require(theName != null && !theName.toString().equals(""))
+
+    val topics = theTopics
+    val name   = theName
 
     def toXml = {
         require(!theTopics.isEmpty, "The Aiml object must have at least one Topic")
 
         <aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">{
-            theTopics.map(theTopic => theTopic match {
+            topics.map(theTopic => theTopic match {
                 case topic: Topic => topic.toXml
                 case _            => throw new IllegalArgumentException("Invalid Topic: \"" + theTopic + "\".")
             })
@@ -49,7 +51,17 @@ class Aiml(name: String, theTopics: Set[Topic] = Set(Topic.default)) {
         }
     }
 
-    def topics = theTopics
+    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Aiml]
+
+    override def equals(other: Any) = {
+        other match {
+            case that: aimltoxml.aiml.Aiml => that.canEqual(Aiml.this) && that.name == this.name && that.topics == this.topics
+            case _                         => false
+        }
+    }
+
+    override def hashCode = 41 * name.hashCode + topics.hashCode
+
 }
 
 abstract class AbstractAiml {

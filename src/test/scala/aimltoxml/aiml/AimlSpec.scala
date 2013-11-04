@@ -25,7 +25,6 @@ package aimltoxml.aiml
 
 import org.scalatest.FlatSpec
 import org.scalatest.Matchers
-import scala.collection.mutable.Set
 
 class AimlSpec extends FlatSpec with Matchers {
 

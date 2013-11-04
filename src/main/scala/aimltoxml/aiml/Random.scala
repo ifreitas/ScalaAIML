@@ -33,6 +33,8 @@ trait RandomElement {
 class Random(theOptions: Set[RandomElement]) extends TemplateElement {
     require(!theOptions.isEmpty, "The Random object must have at least one option. Example: Random(Some(Text(\"Some text here.\")))")
 
+    val options = theOptions
+
     def toXml = {
         <random>{
             theOptions.map(theOption => theOption match {
@@ -41,11 +43,23 @@ class Random(theOptions: Set[RandomElement]) extends TemplateElement {
             })
         }</random>
     }
+
+    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Random]
+
+    override def equals(other: Any) = {
+        other match {
+            case that: aimltoxml.aiml.Random => that.canEqual(Random.this) && this.options == that.options
+            case _                           => false
+        }
+    }
+
+    override def hashCode = 41 * this.options.hashCode
+
 }
 
 abstract class AbstractRandom {
-    final def apply(options: Set[RandomElement])            = { new Random(options) }
-    final def apply(options: RandomElement*): Random        = { Random(options.toSet) }
+    final def apply(options: Set[RandomElement]) = { new Random(options) }
+    final def apply(options: RandomElement*): Random = { Random(options.toSet) }
     final def apply(opt1: String, options: String*): Random = { Random((Seq(opt1) ++ options).map { opt => Text(opt.toString) }: _*) }
 }
 

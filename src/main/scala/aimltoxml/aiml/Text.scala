@@ -23,30 +23,24 @@
  */
 package aimltoxml.aiml
 
-class Text(aText: String) extends TemplateElement with RandomElement with Equals {
+class Text(aText: String) extends TemplateElement with RandomElement {
     def toXml = new scala.xml.Text(content)
     def hasContent = content != null && !content.trim().equals("")
 
     val content = aText
 
-    override def toString = { content }
+    override def toString = content
 
-    def canEqual(other: Any) = {
-        other.isInstanceOf[aimltoxml.aiml.Text]
-    }
+    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Text]
 
     override def equals(other: Any) = {
         other match {
-            case that: aimltoxml.aiml.Text =>
-                that.canEqual(Text.this) &&
-                that.content == this.content
-            case _ => false
+            case that: aimltoxml.aiml.Text => that.canEqual(Text.this) && that.content == this.content
+            case _                         => false
         }
     }
 
-    override def hashCode() = {
-        content.hashCode()
-    }
+    override def hashCode = 41 * content.hashCode
 
 }
 object Text {

@@ -40,10 +40,10 @@ object Demo {
         println(T("greetings", C("hi", "Hello")).toXml)
 
         // Playing with AIML
-        val aiml = A("greetings")
-        aiml.topic("*").
-            add(C("HI", R("Hello, there.", "Hi!"))).
-            add(C("HELLO", S("HI")))
-        println(aiml.toXml)
+//        val aiml = A("greetings")
+//        aiml.topic("*").
+//            add(C("HI", R("Hello, there.", "Hi!"))).
+//            add(C("HELLO", S("HI")))
+//        println(aiml.toXml)
     }
 }

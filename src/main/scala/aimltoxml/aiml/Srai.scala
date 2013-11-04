@@ -23,20 +23,16 @@
  */
 package aimltoxml.aiml
 
-class Srai(theDefaultPattern: Text) extends TemplateElement with RandomElement with Equals {
+class Srai(theDefaultPattern: Text) extends TemplateElement with RandomElement {
     val defaultPattern = theDefaultPattern
     require(defaultPattern != null)
     require(defaultPattern.hasContent)
 
     def toXml = <srai>{ this.defaultPattern.toXml }</srai>
     
-    override def toString={
-        defaultPattern.toString
-    }
+    override def toString = defaultPattern.toString
 
-    def canEqual(other: Any) = {
-        other.isInstanceOf[aimltoxml.aiml.Srai]
-    }
+    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Srai]
 
     override def equals(other: Any) = {
         other match {
@@ -45,9 +41,7 @@ class Srai(theDefaultPattern: Text) extends TemplateElement with RandomElement w
         }
     }
 
-    override def hashCode() = {
-        defaultPattern.hashCode
-    }
+    override def hashCode = 41 * defaultPattern.hashCode
 
 }
 
