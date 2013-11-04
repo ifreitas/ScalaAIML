@@ -28,33 +28,29 @@ import org.scalatest.Matchers
 
 class CategorySpec extends FlatSpec with Matchers {
     it should "throws an exception when no pattern" in {
-        intercept[IllegalArgumentException]{Category(null, Text("hi"))}
+        intercept[IllegalArgumentException] { Category(null, Set(Text("hi"))) }
     }
     it should "throws an exception when pattern is empty" in {
-    	intercept[IllegalArgumentException]{Category("", Text("hi"))}
+        intercept[IllegalArgumentException] { Category("", Set(Text("hi"))) }
     }
     it should "throws an exception when template is empty" in {
-    	intercept[IllegalArgumentException]{Category("hi", Set[TemplateElement]())}
+        intercept[IllegalArgumentException] { Category("hi", Set.empty[TemplateElement]) }
     }
-    
-    "#toXml" should "generate a valid XML (Set Some Text)" in{
-    	val expectedXml = <category><pattern>HI</pattern><template>Hello</template></category>
-    			Category("hi", Text("Hello")).toXml should be(expectedXml)
+
+    "#toXml" should "generate a valid XML (Set Text)" in {
+        val expectedXml = <category><pattern>HI</pattern><that>*</that><template>Hello</template></category>
+        Category("hi", Set[TemplateElement](Text("Hello"))).toXml should be(expectedXml)
     }
-    it should "generate a valid XML (Some Text)" in{
-    	val expectedXml = <category><pattern>HI</pattern><template>Hello</template></category>
-    			Category("hi", Text("Hello")).toXml should be(expectedXml)
+    it should "generate a valid XML (Text)" in {
+        val expectedXml = <category><pattern>HI</pattern><that>*</that><template>Hello</template></category>
+        Category("hi", Set(Text("Hello"))).toXml should be(expectedXml)
     }
-    it should "generate a valid XML (String)" in{
-    	val expectedXml = <category><pattern>HI</pattern><template>Hello</template></category>
-    			Category("hi", "Hello").toXml should be(expectedXml)
+    it should "generate a valid XML (multiple text template)" in {
+        val expectedXml = <category><pattern>HI</pattern><that>*</that><template>Hello how are you</template></category>
+        Category("hi", Set(Text("Hello"), Text(" how are you"))).toXml.toString should equal(expectedXml.toString)
     }
-    it should "generate a valid XML (multiple template Strings)" in{
-    	val expectedXml = <category><pattern>HI</pattern><template>Hello how are you</template></category>
-    			Category("hi", "Hello", " how are you").toXml.toString should equal(expectedXml.toString)
-    }
-    it should "generate a valid XML with UPPER CASE pattern" in{
-    	val expectedXml = <category><pattern>UPPER CASE</pattern><template>ok</template></category>
-    			Category("upper case", Text("ok")).toXml should be(expectedXml)
+    it should "generate a valid XML with UPPER CASE pattern" in {
+        val expectedXml = <category><pattern>UPPER CASE</pattern><that>*</that><template>ok</template></category>
+        Category("upper case", Set(Text("ok"))).toXml should be(expectedXml)
     }
 }
