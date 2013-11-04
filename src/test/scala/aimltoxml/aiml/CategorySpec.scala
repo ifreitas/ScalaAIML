@@ -37,17 +37,13 @@ class CategorySpec extends FlatSpec with Matchers {
         intercept[IllegalArgumentException] { Category("hi", Set.empty[TemplateElement]) }
     }
 
-    "#toXml" should "generate a valid XML (Set Text)" in {
-        val expectedXml = <category><pattern>HI</pattern><that>*</that><template>Hello</template></category>
-        Category("hi", Set[TemplateElement](Text("Hello"))).toXml should be(expectedXml)
-    }
-    it should "generate a valid XML (Text)" in {
+    "#toXml" should "generate a valid XML whit default 'that'" in {
         val expectedXml = <category><pattern>HI</pattern><that>*</that><template>Hello</template></category>
         Category("hi", Set(Text("Hello"))).toXml should be(expectedXml)
     }
-    it should "generate a valid XML (multiple text template)" in {
-        val expectedXml = <category><pattern>HI</pattern><that>*</that><template>Hello how are you</template></category>
-        Category("hi", Set(Text("Hello"), Text(" how are you"))).toXml.toString should equal(expectedXml.toString)
+    it should "generate a valid XML with new 'that'" in {
+        val expectedXml = <category><pattern>ISRAEL</pattern><that>WHAT IS YOUR NAME?</that><template>Hello</template></category>
+        Category("Israel", "What is your name?", Set[TemplateElement](Text("Hello"))).toXml should be(expectedXml)
     }
     it should "generate a valid XML with UPPER CASE pattern" in {
         val expectedXml = <category><pattern>UPPER CASE</pattern><that>*</that><template>ok</template></category>
