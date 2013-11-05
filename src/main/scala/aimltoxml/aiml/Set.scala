@@ -25,7 +25,6 @@ package aimltoxml.aiml
 
 class AimlSet(val variableName: String, val variableValue: TemplateElement) extends TemplateElement{
     require(variableName != null && !variableName.isEmpty)
-    //require(variableValue != null && !variableValue.isValid)
 
     def toXml = <set name={ variableName }>{ variableValue.toXml }</set>
 

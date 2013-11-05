@@ -24,6 +24,8 @@
 package aimltoxml.aiml
 
 class Text(val content: String) extends TemplateElement with RandomElement {
+    require(hasContent)
+    
     def toXml = new scala.xml.Text(content)
     def hasContent = content != null && !content.isEmpty
 

@@ -26,7 +26,6 @@ package aimltoxml.aiml
 import scala.xml.XML
 
 class Think(val whatToThink: TemplateElement) {
-    //require(whatToThink != null && !whatToThink.isValid)
     
     def toXml = <think>{ whatToThink.toXml }</think>
 

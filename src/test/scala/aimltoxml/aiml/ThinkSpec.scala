@@ -29,7 +29,7 @@ import org.scalatest.Matchers
 class ThinkSpec extends FlatSpec with Matchers {
     
     "#toXml" should "generate a valid XML (set)" in {
-    	new Think(new AimlSet("collor", Text("blue"))).toXml should be(<think><set name="collor">blue</set></think>)
+    	new Think(new AimlSet("color", Text("blue"))).toXml should be(<think><set name="color">blue</set></think>)
     }
     it should "generate a valid XML (srai)" in {
     	new Think(Srai("test")).toXml should be(<think><srai>test</srai></think>)

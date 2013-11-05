@@ -29,9 +29,9 @@ import org.scalatest.Matchers
 class SetSpec extends FlatSpec with Matchers {
     
     "#toXml" should "generate a valid XML (text)" in {
-    	new AimlSet("collor",Text("blue")).toXml should be(<set name="collor">blue</set>)
+    	new AimlSet("color",Text("blue")).toXml should be(<set name="color">blue</set>)
     }
     it should "generate a valid XML (star)" in {
-    	new aimltoxml.aiml.AimlSet("collor",Star(1)).toXml should be(<set name="collor"><star index="1"/></set>)
+    	new aimltoxml.aiml.AimlSet("color",Star(1)).toXml should be(<set name="color"><star index="1"/></set>)
     }
 }
