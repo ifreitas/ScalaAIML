@@ -28,13 +28,6 @@ import org.scalatest.Matchers
 
 class SetSpec extends FlatSpec with Matchers {
     
-//    it should "throws an exception when the index is 0" in {
-//        intercept[IllegalArgumentException]{new aimltoxml.aiml.Set("","")}
-//    }
-//    it should "throws an exception when the index is negative" in {
-//        intercept[IllegalArgumentException]{Set(-1)}
-//    }
-//    
     "#toXml" should "generate a valid XML (text)" in {
     	new AimlSet("collor",Text("blue")).toXml should be(<set name="collor">blue</set>)
     }
