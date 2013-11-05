@@ -23,34 +23,22 @@
  */
 package aimltoxml.aiml
 
-import scala.xml.XML
+import org.scalatest.FlatSpec
+import org.scalatest.Matchers
 
-class Star(theIndex: Int = 1) extends TemplateElement {
-    val index = theIndex
-    require(index > 0)
-
-    def toXml = <star index={ index.toString }/>
+class SetSpec extends FlatSpec with Matchers {
     
-    override def toString = "index: "+index
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Star]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.Star => that.canEqual(Star.this) && that.index == this.index
-            case _                         => false
-        }
+//    it should "throws an exception when the index is 0" in {
+//        intercept[IllegalArgumentException]{new aimltoxml.aiml.Set("","")}
+//    }
+//    it should "throws an exception when the index is negative" in {
+//        intercept[IllegalArgumentException]{Set(-1)}
+//    }
+//    
+    "#toXml" should "generate a valid XML (text)" in {
+    	new AimlSet("collor",Text("blue")).toXml.toString should be((<set name="collor">blue</set>).toString)
     }
-
-    override def hashCode: Int = 41 * index
-
+    it should "generate a valid XML (star)" in {
+    	new aimltoxml.aiml.AimlSet("collor",Star(1)).toXml.toString should be((<set name="collor"><star index="1"/></set>).toString)
+    }
 }
-
-abstract class AbstractStar {
-    final def apply(index: Int = 1) = new Star(index)
-}
-
-/**
- *  The AIML Companion Object.
- */
-object Star extends AbstractStar

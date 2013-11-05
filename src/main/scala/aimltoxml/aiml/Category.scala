@@ -83,7 +83,7 @@ class Category(thePattern: Text, theThatPattern: Text, theTemplateElements:Set[T
 }
 
 abstract class AbstractCategory {
-    final def apply(pattern: String, templateElements: Set[TemplateElement], that:String=Star): Category = { new Category(Text(pattern), Text(that), templateElements) }
+    final def apply(pattern: String, templateElements: Set[TemplateElement], that:String=Asterisk): Category = { new Category(Text(pattern), Text(that), templateElements) }
     final def apply(pattern: String, that:String, templateElements: Set[TemplateElement]): Category      = { new Category(Text(pattern), Text(that), templateElements) }
 }
 

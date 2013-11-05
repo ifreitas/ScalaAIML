@@ -23,34 +23,29 @@
  */
 package aimltoxml.aiml
 
-import scala.xml.XML
+/**
+ * TODO: support for all TEMPLATE_EXPRESSION (https://docs.google.com/document/d/1wNT25hJRyupcG51aO89UcQEiG-HkXRXusukADpFnDs4/pub)
+ */
+class AimlSet(theVariableName: String, theVariableValue: TemplateElement) {
+    val variableName = theVariableName
+    val variableValue = theVariableValue
+    require(variableName != null && !variableName.isEmpty)
+    //require(variableValue != null && !variableValue.isValid)
 
-class Star(theIndex: Int = 1) extends TemplateElement {
-    val index = theIndex
-    require(index > 0)
+    def toXml = <set name={ variableName }>{ variableValue.toXml }</set>
 
-    def toXml = <star index={ index.toString }/>
-    
-    override def toString = "index: "+index
+    override def toString = variableName + "=" + variableValue
 
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Star]
+    def canEqual(other: Any) = {
+        other.isInstanceOf[aimltoxml.aiml.AimlSet]
+    }
 
     override def equals(other: Any) = {
         other match {
-            case that: aimltoxml.aiml.Star => that.canEqual(Star.this) && that.index == this.index
-            case _                         => false
+            case that: aimltoxml.aiml.AimlSet => that.canEqual(AimlSet.this) && that.variableName == this.variableName && that.variableValue == this.variableValue
+            case _                            => false
         }
     }
 
-    override def hashCode: Int = 41 * index
-
+    override def hashCode() = 41 * (41 + this.variableName.hashCode) + this.variableValue.hashCode
 }
-
-abstract class AbstractStar {
-    final def apply(index: Int = 1) = new Star(index)
-}
-
-/**
- *  The AIML Companion Object.
- */
-object Star extends AbstractStar
