@@ -36,9 +36,9 @@ class SetSpec extends FlatSpec with Matchers {
 //    }
 //    
     "#toXml" should "generate a valid XML (text)" in {
-    	new AimlSet("collor",Text("blue")).toXml.toString should be((<set name="collor">blue</set>).toString)
+    	new AimlSet("collor",Text("blue")).toXml should be(<set name="collor">blue</set>)
     }
     it should "generate a valid XML (star)" in {
-    	new aimltoxml.aiml.AimlSet("collor",Star(1)).toXml.toString should be((<set name="collor"><star index="1"/></set>).toString)
+    	new aimltoxml.aiml.AimlSet("collor",Star(1)).toXml should be(<set name="collor"><star index="1"/></set>)
     }
 }
