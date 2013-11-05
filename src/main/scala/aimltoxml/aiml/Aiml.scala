@@ -25,7 +25,7 @@ package aimltoxml.aiml
 
 import scala.xml.XML
 
-class Aiml(val name: String, val topics: Set[Topic] = Set(Topic.default)) {
+class Aiml(val name: String, val topics: Set[Topic] = Set(Topic.default)) extends Learnable{
     require(name != null && !name.isEmpty)
     require(!topics.isEmpty, "The Aiml object must have at least one Topic")
 

@@ -43,7 +43,7 @@ import Constants._
  * values of <that> or <topic> are not specified, the program implicitly sets the 
  * values of the corresponding THAT or TOPIC pattern to the wildcard '*'.
  */
-class Category(val pattern: Text, val that: Text, val templateElements:Set[TemplateElement]) {
+class Category(val pattern: Text, val that: Text, val templateElements:Set[TemplateElement]) extends Learnable{
 	require(that    != null && that.hasContent, "The 'that' can not to be empty.")
     require(pattern != null && pattern.hasContent, "The pattern is required.")
     require(!templateElements.isEmpty, "The Category must have at least one Template Element. Example: Category(\"Hi\", null, \"Hello\").")

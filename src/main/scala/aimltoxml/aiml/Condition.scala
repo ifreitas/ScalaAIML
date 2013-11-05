@@ -57,7 +57,7 @@ class Decision(val conditions: Set[Condition], val defaultAnswer: TemplateElemen
 }
 
 abstract class AbstractDecision{
-    def apply(conditions: Set[Condition], defaultAnswer: TemplateElement = null) = new Decision(conditions, defaultAnswer)
+    final def apply(conditions: Set[Condition], defaultAnswer: TemplateElement = null) = new Decision(conditions, defaultAnswer)
 }
 /**
  * Decision companion object
@@ -103,7 +103,7 @@ class Condition(val variableName: String, val variableValue: String, val results
 }
 
 abstract class AbstractCondition {
-    def apply(variableName: String, variableValue: String, results: Set[TemplateElement]) = new Condition(variableName, variableValue, results)
+    final def apply(variableName: String, variableValue: String, results: Set[TemplateElement]) = new Condition(variableName, variableValue, results)
 }
 
 object Condition extends AbstractCondition
