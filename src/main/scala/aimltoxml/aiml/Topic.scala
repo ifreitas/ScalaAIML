@@ -25,14 +25,11 @@ package aimltoxml.aiml
 
 import reflect.runtime.universe.TypeTag
 
-class Topic(n: String, theCategories: Set[Category]) {
-    require(n != null && !n.toString().equals(""))
-
-    val categories = theCategories
-    val name = this.n
+class Topic(val name: String, val categories: Set[Category]) {
+    require(name != null && !name.isEmpty)
+    require(!categories.isEmpty, "The Topic must have at least one Category.")
 
     def toXml = {
-        require(!theCategories.isEmpty, "The Topic must have at least one Category.")
         <topic name={ this.name }>{
             categories.map { theCategory =>
                 theCategory match {
@@ -60,7 +57,7 @@ class Topic(n: String, theCategories: Set[Category]) {
 abstract class AbstractTopic {
     final def apply(name: String, categories: Set[Category]) = { new Topic(name, categories) }
     final def apply(name: String, categories: Category*): Topic = { Topic(name, Set(categories: _*)) }
-    final def default = Topic("*")
+    final def default = Topic(Constants.Asterisk)
 }
 
 /**

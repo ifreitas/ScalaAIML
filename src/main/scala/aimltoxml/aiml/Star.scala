@@ -25,8 +25,7 @@ package aimltoxml.aiml
 
 import scala.xml.XML
 
-class Star(theIndex: Int = 1) extends TemplateElement {
-    val index = theIndex
+class Star(val index: Int = 1) extends TemplateElement {
     require(index > 0)
 
     def toXml = <star index={ index.toString }/>

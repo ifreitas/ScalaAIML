@@ -30,14 +30,12 @@ trait RandomElement {
     def toXml: Node
 }
 
-class Random(theOptions: Set[RandomElement]) extends TemplateElement {
-    require(!theOptions.isEmpty, "The Random object must have at least one option. Example: Random(Some(Text(\"Some text here.\")))")
-
-    val options = theOptions
+class Random(val options: Set[RandomElement]) extends TemplateElement {
+    require(!options.isEmpty, "The Random object must have at least one option. Example: Random(Some(Text(\"Some text here.\")))")
 
     def toXml = {
         <random>{
-            theOptions.map(theOption => theOption match {
+            options.map(theOption => theOption match {
                 case option: RandomElement => <li>{ option.toXml }</li>
                 case _                     => throw new IllegalArgumentException("Invalid Option to Random: \"" + theOption + "\".")
             })

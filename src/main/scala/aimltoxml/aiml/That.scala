@@ -23,8 +23,7 @@
  */
 package aimltoxml.aiml
 
-class That(theThatPattern: Text) extends TemplateElement with RandomElement {
-    val thatPattern = theThatPattern
+class That(val thatPattern: Text) extends TemplateElement with RandomElement {
     require(thatPattern != null)
     require(thatPattern.hasContent)
 

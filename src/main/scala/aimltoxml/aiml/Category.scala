@@ -43,17 +43,13 @@ import Constants._
  * values of <that> or <topic> are not specified, the program implicitly sets the 
  * values of the corresponding THAT or TOPIC pattern to the wildcard '*'.
  */
-class Category(thePattern: Text, theThatPattern: Text, theTemplateElements:Set[TemplateElement]) {
-	require(theThatPattern != null && theThatPattern.hasContent, "The 'that' can not to be empty.")
-    require(thePattern     != null && thePattern.hasContent, "The pattern is required.")
-    require(!theTemplateElements.isEmpty, "The Category must have at least one Template Element. Example: Category(\"Hi\", null, \"Hello\").")
+class Category(val pattern: Text, val that: Text, val templateElements:Set[TemplateElement]) {
+	require(that    != null && that.hasContent, "The 'that' can not to be empty.")
+    require(pattern != null && pattern.hasContent, "The pattern is required.")
+    require(!templateElements.isEmpty, "The Category must have at least one Template Element. Example: Category(\"Hi\", null, \"Hello\").")
     
-    val pattern          = thePattern.content
-    val that             = theThatPattern.content
-    val templateElements = theTemplateElements
-
     def toXml = {
-        <category><pattern>{ pattern.toUpperCase() }</pattern><that>{ that.toUpperCase() }</that><template>{
+        <category><pattern>{ pattern.content.toUpperCase }</pattern><that>{ that.content.toUpperCase }</that><template>{
             templateElements.map(templateElement => templateElement match {
                 case template: TemplateElement => { template.toXml }
                 case _                         => throw new IllegalArgumentException("Invalid Template: \"" + templateElement + "\".")

@@ -23,8 +23,7 @@
  */
 package aimltoxml.aiml
 
-class Srai(theDefaultPattern: Text) extends TemplateElement with RandomElement {
-    val defaultPattern = theDefaultPattern
+class Srai(val defaultPattern: Text) extends TemplateElement with RandomElement {
     require(defaultPattern != null)
     require(defaultPattern.hasContent)
 

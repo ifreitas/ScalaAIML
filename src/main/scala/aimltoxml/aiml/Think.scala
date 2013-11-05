@@ -25,9 +25,8 @@ package aimltoxml.aiml
 
 import scala.xml.XML
 
-class Think(someThingToThink: TemplateElement) {
-    val whatToThink = someThingToThink
-    //require(variableValue != null && !variableValue.isValid)
+class Think(val whatToThink: TemplateElement) {
+    //require(whatToThink != null && !whatToThink.isValid)
     
     def toXml = <think>{ whatToThink.toXml }</think>
 
@@ -42,6 +41,6 @@ class Think(someThingToThink: TemplateElement) {
         }
     }
 
-    override def hashCode() = 41 * whatToThink.hashCode
+    override def hashCode = 41 * whatToThink.hashCode
 
 }

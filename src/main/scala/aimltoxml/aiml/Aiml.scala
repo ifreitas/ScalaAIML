@@ -25,15 +25,11 @@ package aimltoxml.aiml
 
 import scala.xml.XML
 
-class Aiml(theName: String, theTopics: Set[Topic] = Set(Topic.default)) {
-    require(theName != null && !theName.toString().equals(""))
-
-    val topics = theTopics
-    val name   = theName
+class Aiml(val name: String, val topics: Set[Topic] = Set(Topic.default)) {
+    require(name != null && !name.isEmpty)
+    require(!topics.isEmpty, "The Aiml object must have at least one Topic")
 
     def toXml = {
-        require(!theTopics.isEmpty, "The Aiml object must have at least one Topic")
-
         <aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd">{
             topics.map(theTopic => theTopic match {
                 case topic: Topic => topic.toXml
@@ -45,7 +41,7 @@ class Aiml(theName: String, theTopics: Set[Topic] = Set(Topic.default)) {
     def toXmlFile = XML.save(this.name, this.toXml, null, false, null)
 
     def topic(topicName: String) = {
-        (theTopics find (_.name == topicName)) match {
+        (topics find (_.name == topicName)) match {
             case Some(topic) => topic
             case x           => throw new IllegalArgumentException(f"Topic \'$x\' not found")
         }

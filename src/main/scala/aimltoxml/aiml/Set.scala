@@ -23,9 +23,7 @@
  */
 package aimltoxml.aiml
 
-class AimlSet(theVariableName: String, theVariableValue: TemplateElement) extends TemplateElement{
-    val variableName = theVariableName
-    val variableValue = theVariableValue
+class AimlSet(val variableName: String, val variableValue: TemplateElement) extends TemplateElement{
     require(variableName != null && !variableName.isEmpty)
     //require(variableValue != null && !variableValue.isValid)
 
