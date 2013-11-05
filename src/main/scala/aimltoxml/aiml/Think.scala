@@ -23,26 +23,25 @@
  */
 package aimltoxml.aiml
 
-class AimlSet(theVariableName: String, theVariableValue: TemplateElement) extends TemplateElement{
-    val variableName = theVariableName
-    val variableValue = theVariableValue
-    require(variableName != null && !variableName.isEmpty)
+import scala.xml.XML
+
+class Think(someThingToThink: TemplateElement) {
+    val whatToThink = someThingToThink
     //require(variableValue != null && !variableValue.isValid)
+    
+    def toXml = <think>{ whatToThink.toXml }</think>
 
-    def toXml = <set name={ variableName }>{ variableValue.toXml }</set>
+    override def toString = whatToThink.toString
 
-    override def toString = variableName + "=" + variableValue
-
-    def canEqual(other: Any) = {
-        other.isInstanceOf[aimltoxml.aiml.AimlSet]
-    }
+    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Think]
 
     override def equals(other: Any) = {
         other match {
-            case that: aimltoxml.aiml.AimlSet => that.canEqual(AimlSet.this) && that.variableName == this.variableName && that.variableValue == this.variableValue
-            case _                            => false
+            case that: aimltoxml.aiml.Think => that.canEqual(Think.this) && that.whatToThink == this.whatToThink
+            case _                          => false
         }
     }
 
-    override def hashCode() = 41 * (41 + this.variableName.hashCode) + this.variableValue.hashCode
+    override def hashCode() = 41 * whatToThink.hashCode
+
 }

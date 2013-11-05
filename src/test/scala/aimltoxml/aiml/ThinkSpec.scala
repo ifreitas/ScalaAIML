@@ -23,26 +23,15 @@
  */
 package aimltoxml.aiml
 
-class AimlSet(theVariableName: String, theVariableValue: TemplateElement) extends TemplateElement{
-    val variableName = theVariableName
-    val variableValue = theVariableValue
-    require(variableName != null && !variableName.isEmpty)
-    //require(variableValue != null && !variableValue.isValid)
+import org.scalatest.FlatSpec
+import org.scalatest.Matchers
 
-    def toXml = <set name={ variableName }>{ variableValue.toXml }</set>
-
-    override def toString = variableName + "=" + variableValue
-
-    def canEqual(other: Any) = {
-        other.isInstanceOf[aimltoxml.aiml.AimlSet]
+class ThinkSpec extends FlatSpec with Matchers {
+    
+    "#toXml" should "generate a valid XML (set)" in {
+    	new Think(new AimlSet("collor", Text("blue"))).toXml should be(<think><set name="collor">blue</set></think>)
     }
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.AimlSet => that.canEqual(AimlSet.this) && that.variableName == this.variableName && that.variableValue == this.variableValue
-            case _                            => false
-        }
+    it should "generate a valid XML (srai)" in {
+    	new Think(Srai("test")).toXml should be(<think><srai>test</srai></think>)
     }
-
-    override def hashCode() = 41 * (41 + this.variableName.hashCode) + this.variableValue.hashCode
 }
