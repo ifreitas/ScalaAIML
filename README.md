@@ -136,9 +136,3 @@ greetings.toXml
 ```
 
 ---
-#### Version
-0.0.4
-
----
-#### License
-MIT
