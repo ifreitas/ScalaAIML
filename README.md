@@ -74,7 +74,7 @@ C("HI", R("Hello, there.", "Hi!")).toXml
 
 ```scala
 // 'S' is a shorthand for Srai
-C("Hey", S("HI")).toXml
+C("Hey", Srai"HI")).toXml
 ```
 ```xml
 <category>
@@ -104,34 +104,37 @@ T("greetings", C("hi", "Hello")).toXml
 > An AIML object must have a version attribute, indicating the version of AIML that the object requires. For this version of AIML, the version should be 1.0.1. When the value is not equal to 1.0.1, forward-compatible processing mode is enabled.
 
 ```scala
-val greetings = A("greetings")
-greetings.topic("*").
-          add(C("HI", R("Hello, there.", "Hi!"))).
-          add(C("HELLO", S("HI")))
-greetings.toXml
+Aiml("greetings",
+            Topic("*", 
+                C("HI", R("Hello, there.", "Hi!")),
+                C("HELLO", Srai("HI"))
+            )
+        ).toXml
 ```
 ```xml
-<aiml version="1.0.1"
-	xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns="http://alicebot.org/2001/AIML-1.0.1">
-	<topic name="*">
-		<category>
-			<pattern>HELLO</pattern>
-			<template>
-				<srai>HI</srai>
-			</template>
-		</category>
-		<category>
-			<pattern>HI</pattern>
-			<template>
-				<random>
-					<li>Hello, there.</li>
-					<li>Hi!</li>
-				</random>
-			</template>
-		</category>
-	</topic>
+<aiml version="1.0.1" 
+      xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://alicebot.org/2001/AIML-1.0.1">
+  <topic name="*">
+    <category>
+      <pattern>HI</pattern>
+      <that>*</that>
+      <template>
+        <random>
+          <li>Hello, there.</li>
+          <li>Hi!</li>
+        </random>
+      </template>
+    </category>
+    <category>
+      <pattern>HELLO</pattern>
+      <that>*</that>
+      <template>
+        <srai>HI</srai>
+      </template>
+    </category>
+  </topic>
 </aiml>
 ```
 
