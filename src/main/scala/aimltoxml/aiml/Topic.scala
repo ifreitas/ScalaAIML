@@ -23,40 +23,15 @@
  */
 package aimltoxml.aiml
 
-import reflect.runtime.universe.TypeTag
-
-class Topic(val name: String, val categories: Set[Category]) {
-    require(name != null && !name.isEmpty)
+case class Topic(name: Text, categories: Set[Category]) {
+    require(name != null && name.hasContent)
     require(!categories.isEmpty, "The Topic must have at least one Category.")
 
-    def toXml = {
-        <topic name={ this.name }>{
-            categories.map { theCategory =>
-                theCategory match {
-                    case category: Category => category.toXml
-                    case _                  => throw new IllegalArgumentException("Invalid Category: \"" + theCategory + "\".")
-                }
-            }
-        }</topic>
-    }
-
-    override def toString = this.name
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Topic]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.Topic => that.canEqual(Topic.this) && that.name == this.name && that.categories == this.categories
-            case _                          => false
-        }
-    }
-
-    override def hashCode = 41 * this.name.hashCode + this.categories.hashCode
+    def toXml = <topic name={this.name.content}>{categories.map(_.toXml)}</topic>
 }
 
 abstract class AbstractTopic {
-    final def apply(name: String, categories: Set[Category]) = { new Topic(name, categories) }
-    final def apply(name: String, categories: Category*): Topic = { Topic(name, Set(categories: _*)) }
+    final def apply(name: String, categories: Category*): Topic = { Topic(name, categories.toSet) }
     final def default = Topic(Constants.Asterisk)
 }
 

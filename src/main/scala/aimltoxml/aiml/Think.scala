@@ -23,23 +23,7 @@
  */
 package aimltoxml.aiml
 
-import scala.xml.XML
-
-class Think(val whatToThink: TemplateElement) {
-    
+case class Think(whatToThink: TemplateElement) {
+    require(whatToThink != null, "Think requires an 'whatToThink'.")
     def toXml = <think>{ whatToThink.toXml }</think>
-
-    override def toString = whatToThink.toString
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Think]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.Think => that.canEqual(Think.this) && that.whatToThink == this.whatToThink
-            case _                          => false
-        }
-    }
-
-    override def hashCode = 41 * whatToThink.hashCode
-
 }

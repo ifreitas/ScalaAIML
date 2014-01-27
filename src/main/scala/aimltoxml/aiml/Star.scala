@@ -23,33 +23,7 @@
  */
 package aimltoxml.aiml
 
-import scala.xml.XML
-
-class Star(val index: Int = 1) extends TemplateElement {
+case class Star(index: Int = 1) extends TemplateElement {
     require(index > 0)
-
     def toXml = <star index={ index.toString }/>
-    
-    override def toString = "index: "+index
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Star]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.Star => that.canEqual(Star.this) && that.index == this.index
-            case _                         => false
-        }
-    }
-
-    override def hashCode: Int = 41 * index
-
 }
-
-abstract class AbstractStar {
-    final def apply(index: Int = 1) = new Star(index)
-}
-
-/**
- *  The AIML Companion Object.
- */
-object Star extends AbstractStar

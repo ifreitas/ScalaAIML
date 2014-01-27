@@ -23,37 +23,17 @@
  */
 package aimltoxml.aiml
 
-class Srai(val defaultPattern: Text) extends TemplateElement with RandomElement {
+case class Srai(defaultPattern: Text) extends TemplateElement with RandomElement {
     require(defaultPattern != null)
     require(defaultPattern.hasContent)
-
     def toXml = <srai>{ this.defaultPattern.toXml }</srai>
-    
-    override def toString = defaultPattern.toString
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Srai]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.Srai => that.canEqual(Srai.this) && that.defaultPattern == this.defaultPattern
-            case _                         => false
-        }
-    }
-
-    override def hashCode = 41 * defaultPattern.hashCode
-
 }
 
-abstract class AbstractSrai {
-    final def apply(defaultPattern: String) = { new Srai(Text(defaultPattern)) }
-    final def apply(defaultPattern: Text) = { new Srai(defaultPattern) }
-}
-
+abstract class AbstractSrai 
 /**
- * The Srai Companion Object.
+ * The companion object.
  */
 object Srai extends AbstractSrai
-
 /**
  * Shorthand for Srai.
  */

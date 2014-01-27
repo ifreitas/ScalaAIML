@@ -42,17 +42,17 @@ class AimlSpec extends FlatSpec with Matchers {
     	intercept[IllegalArgumentException]{Aiml("aAimlName", Set[Topic](Topic("aTopic", Set.empty[Category]))).toXml}
     }
     it should "generate an XML with the same amount of Topics (list)" in {
-        val topic1 = Topic("aTopic", Category("hi", Set(Text("hey"))))
-        val topic2 = Topic("otherTopic", Category("hey", Set(Text("ho"))))
-        val topic3 = Topic("yetOtherTopic", Category("wow", Set(Text("lol"))))
+        val topic1 = Topic("aTopic", Category("hi", Text("hey")))
+        val topic2 = Topic("otherTopic", Category("hey", Text("ho")))
+        val topic3 = Topic("yetOtherTopic", Category("wow", Text("lol")))
         val aiml   = Aiml("aAimlName", Set[Topic](topic1, topic2, topic3))
         val xml = aiml.toXml
         (xml \ "topic" ).size should be(3)
     }
     it should "generate an XML with the same amount of Topics (varargs)" in {
-    	val topic1 = Topic("aTopic", Category("hi", Set(Text("hey"))))
-        val topic2 = Topic("otherTopic", Category("hey", Set(Text("ho"))))
-        val topic3 = Topic("yetOtherTopic", Category("wow", Set(Text("lol"))))
+    	val topic1 = Topic("aTopic", Category("hi", Text("hey")))
+        val topic2 = Topic("otherTopic", Category("hey", Text("ho")))
+        val topic3 = Topic("yetOtherTopic", Category("wow", Text("lol")))
     	val aiml   = Aiml("aAimlName", topic1, topic2, topic3)
     	val xml = aiml.toXml
     	(xml \ "topic" ).size should be(3)

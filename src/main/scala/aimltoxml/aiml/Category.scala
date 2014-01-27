@@ -23,13 +23,7 @@
  */
 package aimltoxml.aiml
 
-import scala.xml.Elem
-
-import scala.xml.Node
-import scala.xml.transform.RewriteRule
-import scala.xml.transform.RuleTransformer
-import scala.collection.immutable.Set
-import Constants._
+import Constants.Asterisk
 
 /**
  * @param thePattern
@@ -43,44 +37,21 @@ import Constants._
  * values of <that> or <topic> are not specified, the program implicitly sets the 
  * values of the corresponding THAT or TOPIC pattern to the wildcard '*'.
  */
-class Category(val pattern: Text, val that: Text, val templateElements:Set[TemplateElement]) extends Learnable{
+case class Category(pattern: Text, templateElements:Set[TemplateElement], that:Text=Text("*")) extends Learnable{
 	require(that    != null && that.hasContent, "The 'that' can not to be empty.")
     require(pattern != null && pattern.hasContent, "The pattern is required.")
     require(!templateElements.isEmpty, "The Category must have at least one Template Element. Example: Category(\"Hi\", null, \"Hello\").")
     
     def toXml = {
-        <category><pattern>{ pattern.content.toUpperCase }</pattern><that>{ that.content.toUpperCase }</that><template>{
-            templateElements.map(templateElement => templateElement match {
-                case template: TemplateElement => { template.toXml }
-                case _                         => throw new IllegalArgumentException("Invalid Template: \"" + templateElement + "\".")
-            })
+        <category><pattern>{pattern.content.toUpperCase}</pattern><that>{that.content.toUpperCase}</that><template>{
+        	templateElements.map(_.toXml)
         }</template></category>
-    }
-
-    override def toString = "pattern: " + pattern + "; template: " + templateElements.map(t => t.toString)
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Category]
-
-    override def equals(other: Any) = {
-        other match {
-            case otherCategory: aimltoxml.aiml.Category => otherCategory.canEqual(Category.this) &&
-                otherCategory.pattern == this.pattern &&
-                otherCategory.that == this.that &&
-                otherCategory.templateElements == this.templateElements
-            case _ => false
-        }
-    }
-
-    override def hashCode = {
-        if (that != null) 41 * (41 * (41 + pattern.hashCode()) + that.hashCode) + templateElements.hashCode
-        else 41 * (41 + pattern.hashCode()) + templateElements.hashCode
     }
 
 }
 
 abstract class AbstractCategory {
-    final def apply(pattern: String, templateElements: Set[TemplateElement], that:String=Asterisk): Category = { new Category(Text(pattern), Text(that), templateElements) }
-    final def apply(pattern: String, that:String, templateElements: Set[TemplateElement]): Category      = { new Category(Text(pattern), Text(that), templateElements) }
+    final def apply(pattern: String, template: TemplateElement*): Category = { Category(pattern, template.toSet) }
 }
 
 /**

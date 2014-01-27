@@ -23,23 +23,8 @@
  */
 package aimltoxml.aiml
 
-class AimlSet(val variableName: String, val variableValue: TemplateElement) extends TemplateElement{
+case class AimlSet(variableName: String, variableValue: TemplateElement) extends TemplateElement{
     require(variableName != null && !variableName.isEmpty)
-
-    def toXml = <set name={ variableName }>{ variableValue.toXml }</set>
-
-    override def toString = variableName + "=" + variableValue
-
-    def canEqual(other: Any) = {
-        other.isInstanceOf[aimltoxml.aiml.AimlSet]
-    }
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.AimlSet => that.canEqual(AimlSet.this) && that.variableName == this.variableName && that.variableValue == this.variableValue
-            case _                            => false
-        }
-    }
-
-    override def hashCode() = 41 * (41 + this.variableName.hashCode) + this.variableValue.hashCode
+    def toXml = <set name={variableName}>{variableValue.toXml}</set>
+    override def toString = s"AimlSet($variableName=$variableValue)"
 }

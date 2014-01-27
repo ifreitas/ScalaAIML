@@ -28,25 +28,25 @@ import org.scalatest.Matchers
 
 class CategorySpec extends FlatSpec with Matchers {
     it should "throws an exception when no pattern" in {
-        intercept[IllegalArgumentException] { Category(null, Set(Text("hi"))) }
+        intercept[IllegalArgumentException] { Category(null, Text("hi")) }
     }
     it should "throws an exception when pattern is empty" in {
-        intercept[IllegalArgumentException] { Category("", Set(Text("hi"))) }
+        intercept[IllegalArgumentException] { Category("", Text("hi")) }
     }
     it should "throws an exception when template is empty" in {
-        intercept[IllegalArgumentException] { Category("hi", Set.empty[TemplateElement]) }
+        intercept[IllegalArgumentException] { Category(Text("hi"), Set.empty[TemplateElement]) }
     }
 
     "#toXml" should "generate a valid XML whit default 'that'" in {
         val expectedXml = <category><pattern>HI</pattern><that>*</that><template>Hello</template></category>
-        Category("hi", Set(Text("Hello"))).toXml should be(expectedXml)
+        Category("hi", Text("Hello")).toXml should be(expectedXml)
     }
     it should "generate a valid XML with new 'that'" in {
         val expectedXml = <category><pattern>ISRAEL</pattern><that>WHAT IS YOUR NAME?</that><template>Hello</template></category>
-        Category("Israel", "What is your name?", Set[TemplateElement](Text("Hello"))).toXml should be(expectedXml)
+        Category(Text("Israel"), Set[TemplateElement](Text("Hello")), Text("What is your name?")).toXml should be(expectedXml)
     }
     it should "generate a valid XML with UPPER CASE pattern" in {
         val expectedXml = <category><pattern>UPPER CASE</pattern><that>*</that><template>ok</template></category>
-        Category("upper case", Set(Text("ok"))).toXml should be(expectedXml)
+        Category("upper case", Text("ok")).toXml should be(expectedXml)
     }
 }

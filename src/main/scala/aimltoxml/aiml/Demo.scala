@@ -29,16 +29,49 @@ object Demo {
     def main(args: Array[String]) {
 
         // Playing with Categories
-        println(Category("hi", Set(Text("Hello"))).toXml)
-        println(C("hi", Set(Text("Hello"))).toXml) // => <category><pattern>HI</pattern><template>Hello</template></category>
-        println(C("hi", Set(Text("Hello"), Text("Hello"))).toXml) // Repeated 'Hello' => <category><pattern>HI</pattern><template>Hello</template></category>
-        println(C("hi", Set(Text("Hello"), Text(" there"))).toXml) // => <category><pattern>HI</pattern><template>Hello there</template></category>
-        println(C("HI", Set(R("Hello, there.", "Hi!"))).toXml)
-        println(C("Hey", Set(S("HI"))).toXml)
+        
+        // C("hi", "*", "Hello").toXml => <category><pattern>HI</pattern><that>*</that><template>Hello</template></category>
+        // C("Israel", "What is your name", "Hello!").toXml => <category><pattern>ISRAEL</pattern><that>WHAT IS YOUR NAME</that><template>Hello!</template></category>
+        
+//        println(Category("hi", Set(Text("Hello"))).toXml)
+//        println(C("hi", Set(Text("Hello"))).toXml) // => <category><pattern>HI</pattern><template>Hello</template></category>
+//        println(C("hi", Set(Text("Hello"), Text("Hello"))).toXml) // Repeated 'Hello' => <category><pattern>HI</pattern><template>Hello</template></category>
+//        println(C("hi", Set(Text("Hello"), Text(" there"))).toXml) // => <category><pattern>HI</pattern><template>Hello there</template></category>
+//        println(C("HI", Set(R("Hello, there.", "Hi!"))).toXml)
+//        println(C("Hey", Set(S("HI"))).toXml)
 
         println("Topic")
-        println(T("greetings", C("hi", Set(Text("Hello")))).toXml)
+//        println(T("greetings", C("hi", Set(Text("Hello")))).toXml)
+        
+        Aiml("greetings",
+        		Topic("*", 
+        				C("HI", R("Hello, there.", "Hi!")),
+        				C("HELLO", Srai("HI"))
+        		)
+        ).toXml
 
+        <aiml version="1.0.1" xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1 http://aitools.org/aiml/schema/AIML.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://alicebot.org/2001/AIML-1.0.1">
+            <topic name="*">
+        		<category>
+        			<pattern>HI</pattern>
+        			<that>*</that>
+        			<template>
+        				<random>
+        					<li>Hello, there.</li>
+        					<li>Hi!</li>
+        				</random>
+        			</template>
+        		</category>
+        		<category>
+        			<pattern>HELLO</pattern>
+        			<that>*</that>
+        			<template>
+        				<srai>HI</srai>
+        			</template>
+        		</category>
+        	</topic>
+        </aiml>
+        
         // Playing with AIML
 //        val aiml = A("greetings")
 //        aiml.topic("*").

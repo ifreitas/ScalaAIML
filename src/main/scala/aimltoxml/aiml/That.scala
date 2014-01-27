@@ -23,31 +23,15 @@
  */
 package aimltoxml.aiml
 
-class That(val thatPattern: Text) extends TemplateElement with RandomElement {
+case class That(val thatPattern: Text) extends TemplateElement with RandomElement {
     require(thatPattern != null)
     require(thatPattern.hasContent)
 
-    def toXml = <that>{ this.thatPattern.toXml }</that>
+    def toXml = <that>{this.thatPattern.toXml}</that>
     
-    override def toString = thatPattern.toString
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.That]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.That => that.canEqual(That.this) && that.thatPattern == this.thatPattern
-            case _                         => false
-        }
-    }
-
-    override def hashCode = 41 * thatPattern.hashCode
-
 }
 
-abstract class AbstractThat {
-    final def apply(thatPattern: String) = { new That(Text(thatPattern)) }
-    final def apply(thatPattern: Text) = { new That(thatPattern) }
-}
+abstract class AbstractThat 
 
 /**
  * The That Companion Object.

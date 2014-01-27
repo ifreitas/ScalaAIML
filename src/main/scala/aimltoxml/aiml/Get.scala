@@ -23,20 +23,8 @@
  */
 package aimltoxml.aiml
 
-class Get(val variableName: String) {
+case class Get(variableName: String) extends TemplateElement{
     require(variableName != null && !variableName.isEmpty)
-    
     def toXml = <get name={ variableName }/>
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Get]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.Get => that.canEqual(Get.this) && that.variableName == this.variableName
-            case _                        => false
-        }
-    }
-
-    override def hashCode = 41 * variableName.hashCode
 
 }

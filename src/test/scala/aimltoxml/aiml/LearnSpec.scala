@@ -34,11 +34,11 @@ class LearnSpec extends FlatSpec with Matchers {
     }
     
     "#toXml" should "generate a valid XML (aiml)" in {
-        val learnable = Aiml("learn.aiml", Set(Topic("about learn", Set(Category("Learn this", Set(Text("Ok")))))))
+        val learnable = Aiml("learn.aiml", Set(Topic("about learn", Set(Category("Learn this", Text("Ok"))))))
         Learn(learnable).toXml should be (<learn>{"file:/"+learnable.name}</learn>)
     }
     it should "generate a valid XML (category)" in {
-    	val learnable = Category("Learn this", Set(Text("Ok")))
+    	val learnable = Category("Learn this", Text("Ok"))
         Learn(learnable).toXml should be (<learn>{learnable.toXml}</learn>)
     }
 }

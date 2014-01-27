@@ -23,10 +23,8 @@
  */
 package aimltoxml.aiml
 
-import scala.xml.Node
-
-trait Learnable { def toXml: Node }
-class Learn(val whatToLearn: Learnable) extends Equals {
+trait Learnable { def toXml: scala.xml.Node }
+case class Learn(whatToLearn: Learnable){
     require(whatToLearn != null)
 
     def toXml = {
@@ -37,24 +35,4 @@ class Learn(val whatToLearn: Learnable) extends Equals {
             }
         }</learn>
     }
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Learn]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.Learn => that.canEqual(Learn.this) && whatToLearn == that.whatToLearn
-            case _                          => false
-        }
-    }
-
-    override def hashCode() = { val prime = 41; prime + whatToLearn.hashCode }
 }
-
-abstract class AbstractLearn {
-    final def apply(whatToLearn: Learnable) = new Learn(whatToLearn)
-}
-
-/**
- * The Learn Companion Object.
- */
-object Learn extends AbstractLearn

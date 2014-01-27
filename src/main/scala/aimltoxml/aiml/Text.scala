@@ -23,26 +23,12 @@
  */
 package aimltoxml.aiml
 
-class Text(val content: String) extends TemplateElement with RandomElement {
+case class Text(content: String) extends TemplateElement with RandomElement {
     require(hasContent)
-    
     def toXml = new scala.xml.Text(content)
     def hasContent = content != null && !content.isEmpty
-
-    override def toString = content
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Text]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.Text => that.canEqual(Text.this) && that.content == this.content
-            case _                         => false
-        }
-    }
-
-    override def hashCode = 41 * content.hashCode
-
 }
-object Text {
-    def apply(aText: String) = { new Text(aText) }
+
+object Text{
+    implicit def stringToText(str:String):Text = Text(str)
 }

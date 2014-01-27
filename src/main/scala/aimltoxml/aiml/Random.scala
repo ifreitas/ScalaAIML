@@ -24,41 +24,22 @@
 package aimltoxml.aiml
 
 import scala.xml.Node
-import reflect.runtime.universe.TypeTag
 
 trait RandomElement {
     def toXml: Node
 }
 
-class Random(val options: Set[RandomElement]) extends TemplateElement {
+case class Random(options: Set[RandomElement]) extends TemplateElement {
     require(!options.isEmpty, "The Random object must have at least one option. Example: Random(Some(Text(\"Some text here.\")))")
 
-    def toXml = {
-        <random>{
-            options.map(theOption => theOption match {
-                case option: RandomElement => <li>{ option.toXml }</li>
-                case _                     => throw new IllegalArgumentException("Invalid Option to Random: \"" + theOption + "\".")
-            })
+    def toXml = <random>{
+            options.map(option => <li>{ option.toXml }</li>)
         }</random>
-    }
-
-    def canEqual(other: Any) = other.isInstanceOf[aimltoxml.aiml.Random]
-
-    override def equals(other: Any) = {
-        other match {
-            case that: aimltoxml.aiml.Random => that.canEqual(Random.this) && this.options == that.options
-            case _                           => false
-        }
-    }
-
-    override def hashCode = 41 * this.options.hashCode
 
 }
 
 abstract class AbstractRandom {
-    final def apply(options: Set[RandomElement]) = { new Random(options) }
-    final def apply(options: RandomElement*): Random = { Random(options.toSet) }
-    final def apply(opt1: String, options: String*): Random = { Random((Seq(opt1) ++ options).map { opt => Text(opt.toString) }: _*) }
+    final def apply(options: String*): Random = new Random(options.toSet[String].map({Text(_)}))
 }
 
 /**
