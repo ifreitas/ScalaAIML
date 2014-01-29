@@ -17,7 +17,7 @@ Loebner Prize for "most human computer" AIML [winners](http://en.wikipedia.org/w
 
 
 ## [AimlToXml](https://github.com/ifreitas/AimlToXml)
-Is an easy to use set of Scala objects representing the AIML tags for creating AIML xml files.
+It is an easy to use set of Scala objects representing the AIML tags for creating AIML xml files.
 
 ### Usage
 (The definitions used bellow came from the [AIML Overview](http://www.alicebot.org/TR/2011/) page)
@@ -74,7 +74,7 @@ C("HI", R("Hello, there.", "Hi!")).toXml
 
 ```scala
 // 'S' is a shorthand for Srai
-C("Hey", Srai"HI")).toXml
+C("Hey", Srai("HI")).toXml
 ```
 ```xml
 <category>
