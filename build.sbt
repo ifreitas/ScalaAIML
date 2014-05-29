@@ -1,6 +1,6 @@
 name := "AIML To XML"
 
-version := "0.15.2"
+version := "0.15.3"
 
 scalaVersion := "2.10.2"
 
