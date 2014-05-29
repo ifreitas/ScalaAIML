@@ -23,8 +23,8 @@
  */
 package aimltoxml.aiml
 
-case class AimlSet(variableName: String, variableValue: TemplateElement) extends TemplateElement{
+case class AimlSet(variableName: String, variableValue: List[TemplateElement]) extends TemplateElement{
     require(variableName != null && !variableName.isEmpty)
-    def toXml = <set name={variableName}>{variableValue.toXml}</set>
+    def toXml = <set name={variableName}>{variableValue.map(_.toXml)}</set>
     override def toString = s"AimlSet($variableName=$variableValue)"
 }

@@ -33,7 +33,7 @@ case class Aiml(name: String, topics: Set[Topic] = Set(Topic.default)) extends L
         topics.map(_.toXml)
         }</aiml>
 
-    def toXmlFile = XML.save(this.name, this.toXml, "UTF-8", false, null)
+    def toXmlFile = XML.save(this.name, this.toXml, "UTF-8", true, null)
 }
 
 abstract class AbstractAiml {

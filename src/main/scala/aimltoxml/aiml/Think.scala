@@ -23,7 +23,7 @@
  */
 package aimltoxml.aiml
 
-case class Think(whatToThink: TemplateElement) {
+case class Think(whatToThink: List[TemplateElement]) extends TemplateElement {
     require(whatToThink != null, "Think requires an 'whatToThink'.")
-    def toXml = <think>{ whatToThink.toXml }</think>
+    def toXml = <think>{ whatToThink.map(_.toXml) }</think>
 }

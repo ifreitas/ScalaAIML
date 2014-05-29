@@ -23,7 +23,7 @@
  */
 package aimltoxml.aiml
 
-case class Get(variableName: String) extends TemplateElement{
+case class Get(variableName: String) extends TemplateElement with RandomElement{
     require(variableName != null && !variableName.isEmpty)
     def toXml = <get name={ variableName }/>
 

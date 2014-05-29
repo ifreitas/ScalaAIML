@@ -29,17 +29,17 @@ trait RandomElement {
     def toXml: Node
 }
 
-case class Random(options: Set[RandomElement]) extends TemplateElement {
+case class Random(options: Set[List[RandomElement]]) extends TemplateElement {
     require(!options.isEmpty, "The Random object must have at least one option. Example: Random(Some(Text(\"Some text here.\")))")
 
     def toXml = <random>{
-            options.map(option => <li>{ option.toXml }</li>)
+            options.map(option => <li><sentence>{ option.map(_.toXml) }</sentence></li>)
         }</random>
 
 }
 
 abstract class AbstractRandom {
-    final def apply(options: String*): Random = new Random(options.toSet[String].map({Text(_)}))
+    final def apply(options: String*): Random = new Random(options.toSet[String].map{str=>List(Text(str))})
 }
 
 /**

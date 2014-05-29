@@ -28,19 +28,19 @@ import org.scalatest.Matchers
 
 class RandomSpec extends FlatSpec with Matchers {
     it should "throws an exception when no Options" in {
-        intercept[IllegalArgumentException]{Random(Set.empty[RandomElement]).toXml}
+        intercept[IllegalArgumentException]{Random(Set.empty[List[RandomElement]]).toXml}
     }
     
     "#toXml" should "generate a valid XML (varargs)" in{
-        val expectedXml = <random><li>Hi</li><li>Hey</li></random>
+        val expectedXml = <random><li><sentence>Hi</sentence></li><li><sentence>Hey</sentence></li></random>
         Random("Hi", "Hey").toXml should be(expectedXml)
     }
     it should "generate a valid XML (list)" in{
-    	val expectedXml = <random><li>Hi</li><li>Hey</li></random>
-    	Random(Set[RandomElement](Text("Hi"), Text("Hey"))).toXml should be(expectedXml)
+    	val expectedXml = <random><li><sentence>Hi</sentence></li><li><sentence>Hey</sentence></li></random>
+    	new Random(Set(List(Text("Hi")), List(Text("Hey")))).toXml should be(expectedXml)
     }
     it should "generate a valid XML (li + srai)" in{
-    	val expectedXml = <random><li>Hi</li><li><srai>Hey</srai></li></random>
-    	new Random(Set(Text("Hi"), Srai(Text("Hey")))).toXml should be(expectedXml)
+    	new Random(Set(List(Text("Hi "), Srai(Text("Hey"))))).toXml should be(<random><li><sentence>Hi <srai>Hey</srai></sentence></li></random>)
+    	new Random(Set(List(Text("Hi ")), List(Srai(Text("Hey"))))).toXml should be(<random><li><sentence>Hi </sentence></li><li><sentence><srai>Hey</srai></sentence></li></random>)
     }
 }
