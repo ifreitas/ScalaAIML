@@ -1,8 +1,8 @@
 name := "AIML To XML"
 
-version := "0.15.3"
+version := "0.16"
 
-scalaVersion := "2.10.2"
+scalaVersion := "2.12.4"
 
 EclipseKeys.withSource := true
 
@@ -16,9 +16,10 @@ scalacOptions ++= Seq("-deprecation", "-unchecked")
 
 libraryDependencies ++= {
   Seq(
-    "org.scala-lang"           % "scala-reflect"               % "2.10.2",
-    "org.scalatest"            % "scalatest_2.10"              % "2.0.M8"              % "test",
-    "org.mockito"              % "mockito-all"                 % "1.9.5"               % "test"
+    "org.scala-lang.modules"     %% "scala-xml"                  % "1.0.6",
+    "org.scala-lang.modules"     %% "scala-parser-combinators"   % "1.0.4",
+    "org.scalatest"              %% "scalatest"                  % "3.0.4"                 % "test",
+    "org.mockito"                % "mockito-core"                % "2.13.0"               % "test"
   )
 }
  
