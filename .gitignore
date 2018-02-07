@@ -2,6 +2,7 @@ bin/
 target/*
 project/target/*
 project/project/*
+src/test/scala/target/
 .settings/*
 .classpath
 .cache-main
