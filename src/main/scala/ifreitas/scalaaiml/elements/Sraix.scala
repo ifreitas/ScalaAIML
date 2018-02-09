@@ -23,8 +23,8 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class Sraix(host: Option[SraixAttributeTagHost], botId: Option[SraixAttributeTagBotId], hint: Option[SraixAttributeTagHint], apiKey: Option[SraixAttributeTagApiKey], service: Option[SraixAttributeTagService], expression: TemplateExpression*) extends TemplateExpression {
+case class Sraix(expression: TemplateExpression*) extends TemplateExpression {
 
-  def toXml = <sraix>{ host.toXml }{ botId.toXml }{ hint.toXml }{ apiKey.toXml }{ service.toXml }{ expression.toXml }</sraix>
+  def toXml = <sraix>{ expression.toXml }</sraix>
 
 }

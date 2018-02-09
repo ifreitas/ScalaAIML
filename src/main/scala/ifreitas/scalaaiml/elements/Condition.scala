@@ -23,8 +23,8 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class Condition(name: Option[Name], value: Option[Value], expression: TemplateExpression*) extends TemplateExpression {
+case class Condition(expression: TemplateExpression*) extends TemplateExpression {
 
-  def toXml = <condition>{ name.toXml }{ value.toXml }{ expression.toXml }</condition>
+  def toXml = <condition>{ expression.toXml }</condition>
 
 }

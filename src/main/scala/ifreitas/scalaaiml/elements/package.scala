@@ -26,12 +26,13 @@ package ifreitas.scalaaiml
 package object elements {
   implicit def stringToWord(str: String) = Word(str)
   implicit def stringToText(str: String) = Text(str)
-  implicit def stringToXml(str: String) = new scala.xml.Text(str)
+  implicit def stringToXml(str: String) = new scala.xml.Text(str).asInstanceOf[scala.xml.Node]
 
   implicit class SeqToXml(val seq: Seq[ToXml]) {
     def toXml = seq.map(_.toXml)
   }
+
   implicit class OptionTemplateExpressionToXml(val option: Option[TemplateExpression]) {
-    def toXml = option.fold[scala.xml.Node]("")(_.toXml)
+    def toXml() = option.fold[scala.xml.Node]("")(f => f.toXml)
   }
 }

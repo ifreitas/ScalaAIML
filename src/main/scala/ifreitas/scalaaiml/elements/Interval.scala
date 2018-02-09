@@ -23,7 +23,7 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class Interval(format: Option[DateFormat], style: Option[IntervalStyle], from: Option[IntervalFrom], to: Option[IntervalTo]) extends DateFormat {
+case class Interval(format: Option[DateFormat] = None, style: Option[IntervalStyle] = None, from: Option[IntervalFrom] = None, to: Option[IntervalTo] = None) extends DateFormat {
 
   def toXml = <interval>{ format.toXml }{ style.toXml }{ from.toXml }{ to.toXml }</interval>
 

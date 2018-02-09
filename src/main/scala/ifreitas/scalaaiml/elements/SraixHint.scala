@@ -23,8 +23,8 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class SetPredicate(predicateName: Name, expression: TemplateExpression*) extends TemplateExpression {
+case class SraixHint(expression: TemplateExpression*) extends TemplateExpression {
 
-  def toXml = <set>{ predicateName.toXml }{ expression.toXml }</set>
+  def toXml = <hint>{ expression.toXml }</hint>
 
 }

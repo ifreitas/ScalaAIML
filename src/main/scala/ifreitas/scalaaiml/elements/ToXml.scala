@@ -25,6 +25,6 @@ package ifreitas.scalaaiml.elements
 
 trait ToXml {
 
-  def toXml: scala.xml.Node
+  def toXml(): scala.xml.Node
 
 }
