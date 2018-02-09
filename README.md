@@ -1,5 +1,5 @@
 
-[![CircleCI](https://circleci.com/gh/ifreitas/AimlToXml/tree/master.svg?style=shield&circle-token=AimlToXml)](https://circleci.com/gh/ifreitas/AimlToXml) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7eb80c23277b4cbaa580369b996fdb75)](https://www.codacy.com/app/israel.araujo.freitas/AimlToXml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ifreitas/AimlToXml&amp;utm_campaign=Badge_Grade)
+[![CircleCI](https://circleci.com/gh/ifreitas/ScalaAIML/tree/master.svg?style=shield&circle-token=ScalaAIML)](https://circleci.com/gh/ifreitas/ScalaAIML) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7eb80c23277b4cbaa580369b996fdb75)](https://www.codacy.com/app/israel.araujo.freitas/AimlToXml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ifreitas/AimlToXml&amp;utm_campaign=Badge_Grade)
 
 
 ScalaAIML
