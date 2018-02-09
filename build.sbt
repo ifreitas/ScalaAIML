@@ -1,4 +1,4 @@
-name := "AIML To XML"
+name := "Scala AIML"
 
 version := "1.1.0"
 
