@@ -29,5 +29,5 @@ case class Aiml(fileName: String, topics: Topic*) extends ToXml {
 
   def toXml = <aiml version="2.0">{ topics.toXml }</aiml>
 
-  def toXmlFile = XML.save(this.fileName, this.toXml, "UTF-8", true)
+  def save = XML.save(fileName, toXml, "UTF-8", true)
 }

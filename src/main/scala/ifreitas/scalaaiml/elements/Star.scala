@@ -23,7 +23,7 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class Star(index: Index) extends TemplateExpression {
+case class Star(index: Option[Index] = None) extends TemplateExpression {
 
   def toXml = <star>{ index.toXml }</star>
 

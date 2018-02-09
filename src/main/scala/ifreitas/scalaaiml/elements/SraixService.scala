@@ -23,8 +23,8 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class SraixAttributeTagHint(expression: TemplateExpression*) extends TemplateExpression {
+case class SraixService(expression: TemplateExpression*) extends TemplateExpression {
 
-  def toXml = <hint>{ expression.toXml }</hint>
+  def toXml = <service>{ expression.toXml }</service>
 
 }

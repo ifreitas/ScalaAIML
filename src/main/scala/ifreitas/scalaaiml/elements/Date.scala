@@ -25,8 +25,8 @@ package ifreitas.scalaaiml.elements
 
 import scala.xml.Node
 
-case class Date(format: Option[DateFormat]) extends DateFormat {
+case class Date(format: Option[DateFormat] = None) extends DateFormat {
 
-  def toXml = <format>{ format.fold[Node]("")(_.toXml) }</format>
-  
+  def toXml = <date>{ format.toXml }</date>
+
 }

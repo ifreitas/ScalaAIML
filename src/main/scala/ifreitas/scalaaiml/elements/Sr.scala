@@ -23,8 +23,8 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class SraixAttributeTagHost(expression: TemplateExpression*) extends TemplateExpression {
+case class Sr() extends TemplateExpression {
 
-  def toXml = <host>{ expression.toXml }</host>
+  def toXml = <sr/>
 
 }

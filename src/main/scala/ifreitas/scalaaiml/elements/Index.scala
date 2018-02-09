@@ -28,3 +28,4 @@ case class Index(expression: TemplateExpression*) extends TemplateExpression {
   def toXml = <index>{ expression.toXml }</index>
 
 }
+

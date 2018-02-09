@@ -23,7 +23,7 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class SraixAttributeTagBotId(expression: TemplateExpression*) extends TemplateExpression {
+case class SraixBotId(expression: TemplateExpression*) extends TemplateExpression {
 
   def toXml = <botid>{ expression.toXml }</botid>
 

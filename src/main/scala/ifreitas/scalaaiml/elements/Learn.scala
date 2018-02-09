@@ -23,7 +23,7 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class Learn(categories: Category*) extends ToXml {
+case class Learn(categories: Category*) extends TemplateExpression {
 
   def toXml = <learn>{ categories.toXml }</learn>
 

@@ -23,8 +23,8 @@
  */
 package ifreitas.scalaaiml.elements
 
-case class SraixAttributeTagService(expression: TemplateExpression*) extends TemplateExpression {
+case class Input(index: Option[Index] = None) extends TemplateExpression {
 
-  def toXml = <service>{ expression.toXml }</service>
+  def toXml = <input>{ index.toXml }</input>
 
 }
